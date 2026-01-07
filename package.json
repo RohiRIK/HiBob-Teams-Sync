@@ -5,14 +5,10 @@
   "main": "src/typescript/index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun run src/typescript/index.ts",
+    "start": "node src/typescript/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@microsoft/microsoft-graph-client": "^3.0.7",
-    "isomorphic-fetch": "^3.0.0"
-  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/node": "latest"
   }
 }
