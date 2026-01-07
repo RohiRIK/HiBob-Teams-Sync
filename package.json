@@ -1,0 +1,18 @@
+{
+  "name": "hibob-teams-sync",
+  "version": "1.0.0",
+  "description": "Syncs HiBob profile pictures to Microsoft Teams (Entra ID).",
+  "main": "src/typescript/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/typescript/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "isomorphic-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
