@@ -13,7 +13,8 @@ export const config = {
     testUserEmail: process.env.TEST_USER_EMAIL || null,
     syncAvatars: process.env.DO_SYNC_AVATARS === 'true',
     verbose: (process.env.IS_DRY_RUN === 'true') || (process.env.DEBUG_MODE === 'true'),
-    maxUsers: parseInt(process.env.MAX_USERS || '0', 10)
+    maxUsers: parseInt(process.env.MAX_USERS || '0', 10),
+    buildTestOnly: process.env.BUILD_TEST_ONLY === 'true'
 };
 
 export function validateConfig(): boolean {

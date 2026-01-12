@@ -12,6 +12,7 @@ pipeline {
         booleanParam(name: 'SYNC_AVATARS', defaultValue: true, description: 'Master toggle for the profile picture sync feature.')
         booleanParam(name: 'DEBUG_MODE', defaultValue: false, description: 'If checked, enables verbose logging for troubleshooting.')
         string(name: 'MAX_USERS', defaultValue: '0', description: 'Safety limit: Maximum number of users to process (0 for unlimited).')
+        booleanParam(name: 'BUILD_TEST_ONLY', defaultValue: false, description: 'If checked, runs a mock build test to verify environment without real API calls.')
     }
 
     environment {
@@ -23,6 +24,7 @@ pipeline {
         DO_SYNC_AVATARS = "${params.SYNC_AVATARS}"
         DEBUG_MODE = "${params.DEBUG_MODE}"
         MAX_USERS = "${params.MAX_USERS}"
+        BUILD_TEST_ONLY = "${params.BUILD_TEST_ONLY}"
     }
 
     stages {

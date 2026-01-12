@@ -21,8 +21,14 @@ async function main() {
     const hibob = new HiBobService();
     const graph = new GraphService();
 
-    Logger.info(CTX, "📥 Fetching employee list from HiBob...");
-    const employees = await hibob.getEmployees();
+    let employees: Employee[] = [];
+    if (config.buildTestOnly) {
+        Logger.warn(CTX, "🧪 SMOKE TEST ACTIVE: Using mock data instead of real API calls.");
+        employees = [{ id: "mock-123", email: "smoke.test@example.com" }];
+    } else {
+        Logger.info(CTX, "📥 Fetching employee list from HiBob...");
+        employees = await hibob.getEmployees();
+    }
     
     // Filter for Test User if specified
     const targetEmployees = config.testUserEmail 
