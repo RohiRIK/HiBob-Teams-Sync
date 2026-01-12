@@ -29,7 +29,7 @@ pipeline {
         stage('Prepare Runtime') {
             steps {
                 script {
-                    dir('Services/HiBobTeamsSync') {
+                    dir('HiBobTeamsSync') {
                         if (params.SCRIPT_LANGUAGE == 'TypeScript (Bun)') {
                             echo "📦 Checking/Installing Bun..."
                             sh '''
@@ -63,7 +63,7 @@ pipeline {
         stage('Execute Sync') {
             steps {
                 script {
-                    dir('Services/HiBobTeamsSync') {
+                    dir('HiBobTeamsSync') {
                         if (params.SCRIPT_LANGUAGE == 'TypeScript (Bun)') {
                             echo "⚡ Executing TypeScript Logic (Bun)..."
                             sh '''
