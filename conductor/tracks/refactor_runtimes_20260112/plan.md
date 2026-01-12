@@ -10,9 +10,9 @@
 - [x] Task: Configure root `package.json` scripts to use Bun runtimes. (3898cf6)
 - [ ] Task: Conductor - User Manual Verification 'Manifest Consolidation' (Protocol in workflow.md)
 
-## Phase 3: Pipeline Update
-- [ ] Task: Modify `Jenkinsfile` to replace `npm install` with `bun install` and `node` with `bun run`.
-- [ ] Task: Standardize the `SCRIPT_LANGUAGE` parameter logic in Jenkins.
+## Phase 3: Pipeline Update [checkpoint: 75a7b3a]
+- [x] Task: Modify `Jenkinsfile` to replace `npm install` with `bun install` and `node` with `bun run`. (jenkins_bun)
+- [x] Task: Standardize the `SCRIPT_LANGUAGE` parameter logic in Jenkins. (jenkins_bun_param)
 - [ ] Task: Conductor - User Manual Verification 'Pipeline Update' (Protocol in workflow.md)
 
 ## Phase 4: Cleanup & Verification
