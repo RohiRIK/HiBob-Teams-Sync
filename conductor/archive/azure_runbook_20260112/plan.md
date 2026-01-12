@@ -1,10 +1,10 @@
 # Track Plan: Simplified Azure Runbook Script
 
 ## Phase 1: Setup & Authentication Logic
-- [ ] Task: Create new directory `azure-automation/` and empty script file `Sync-HiBobToTeams-Runbook.ps1`.
-- [ ] Task: Implement authentication logic using `Connect-AzAccount -Identity` and `Connect-MgGraph -Identity`.
-- [ ] Task: Implement Azure Key Vault retrieval logic for the HiBob token.
-- [ ] Task: Write tests for authentication and secret retrieval (mocking Azure cmdlets).
+- [x] Task: Create new directory `azure-automation/` and empty script file `Sync-HiBobToTeams-Runbook.ps1`. (f8f03a6)
+- [x] Task: Implement authentication logic using `Connect-AzAccount -Identity` and `Connect-MgGraph -Identity`. (d8452a7)
+- [x] Task: Implement Azure Key Vault retrieval logic for the HiBob token. (4757ae1)
+- [x] Task: Write tests for authentication and secret retrieval (mocking Azure cmdlets). (5a1f7e1)
 - [ ] Task: Conductor - User Manual Verification 'Setup & Authentication Logic' (Protocol in workflow.md)
 
 ## Phase 2: Core Sync Logic Implementation
