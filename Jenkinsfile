@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice(
             name: 'SCRIPT_LANGUAGE',
-            choices: ['Node.js (npm)', 'PowerShell (Core)'],
+            choices: ['TypeScript (Bun)', 'PowerShell (Core)'],
             description: 'Select the runtime engine for the synchronization logic.'
         )
 ...
@@ -12,17 +12,17 @@ pipeline {
         stage('Prepare Runtime') {
             steps {
                 script {
-                    if (params.SCRIPT_LANGUAGE == 'Node.js (npm)') {
-                        echo "📦 Installing npm dependencies..."
-                        sh 'npm install'
+                    if (params.SCRIPT_LANGUAGE == 'TypeScript (Bun)') {
+                        echo "📦 Installing Bun dependencies..."
+                        sh 'bun install'
                     } else {
 ...
         stage('Execute Sync') {
             steps {
                 script {
-                    if (params.SCRIPT_LANGUAGE == 'Node.js (npm)') {
-                        echo "⚡ Executing Node.js Logic..."
-                        sh 'npm start'
+                    if (params.SCRIPT_LANGUAGE == 'TypeScript (Bun)') {
+                        echo "⚡ Executing TypeScript Logic (Bun)..."
+                        sh 'bun start'
                     } else {
     }
 
