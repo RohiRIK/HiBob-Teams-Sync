@@ -45,12 +45,12 @@ pipeline {
                                     curl -L https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/powershell-7.4.1-linux-x64.tar.gz -o /tmp/powershell.tar.gz
                                     mkdir -p /var/jenkins_home/powershell
                                     tar -xvf /tmp/powershell.tar.gz -C /var/jenkins_home/powershell
-                                    chmod +x /var/jenkins_home/powershell/pwsh
-                                fi
-                                export PATH="/var/jenkins_home/powershell:$PATH"
-                                pwsh -Command "Get-ChildItem -Recurse | Unblock-File"
-                            '''
-                        }
+                                                                    chmod +x /var/jenkins_home/powershell/pwsh
+                                                                fi
+                                                                export PATH="/var/jenkins_home/powershell:$PATH"
+                                                                export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+                                                                pwsh -Command "Get-ChildItem -Recurse | Unblock-File"
+                                                            '''                        }
                     }
                 }
             }
@@ -71,6 +71,7 @@ pipeline {
                             echo "⚡ Executing PowerShell Logic..."
                             sh '''
                                 export PATH="/var/jenkins_home/powershell:$PATH"
+                                export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
                                 pwsh -File src/powershell/Invoke-Sync.ps1
                             '''
                         }

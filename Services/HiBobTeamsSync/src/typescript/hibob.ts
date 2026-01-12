@@ -17,7 +17,8 @@ export class HiBobService {
 
     async getEmployees(): Promise<Employee[]> {
         const url = `${config.hibob.apiUrl}/people/search`;
-        Logger.debug(CTX, `POST ${url} | Payload: { showInactive: false }`);
+        Logger.debug(CTX, `POST ${url} | Token Length: ${config.hibob.token?.length || 0} characters`);
+        Logger.debug(CTX, `Payload: { showInactive: false }`);
 
         const response = await fetch(url, {
             method: 'POST',
