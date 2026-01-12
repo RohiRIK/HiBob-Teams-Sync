@@ -9,6 +9,8 @@ Ensure consistent visual identity across the organization by automatically synch
 ## Core Features
 *   **Automated Nightly Synchronization:** Runs on a scheduled basis to ensure data freshness without human trigger.
 *   **Delta Sync:** Intelligent logic to compare and only update records that have changed, minimizing API load and execution time.
+*   **High-Fidelity Observability:** Detailed timestamped logging and debug modes for transparent troubleshooting.
+*   **Safety Controls:** Configurable execution limits to process specific subsets of users.
 
 ## Success Metrics
 *   **100% Data Parity:** Achieve complete consistency of profile pictures between source (HiBob) and destination (Teams).
