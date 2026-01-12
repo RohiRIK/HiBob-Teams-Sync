@@ -1,9 +1,9 @@
 # Track Plan: Fix API Headers & Enhance Logging
 
 ## Phase 1: API Fix & Parameter Update
-- [ ] Task: Update `hibob.ts` headers to include `Accept` and `Content-Type` to fix HTTP 415 error.
-- [ ] Task: Modify `Jenkinsfile` to add the `DEBUG_MODE` boolean parameter.
-- [ ] Task: Update `config.ts` to parse `DEBUG_MODE` env var and export a `verbose` flag (`dryRun || debugMode`).
+- [x] Task: Update `hibob.ts` headers to include `Accept` and `Content-Type` to fix HTTP 415 error. (fixed415)
+- [x] Task: Modify `Jenkinsfile` to add the `DEBUG_MODE` boolean parameter. (jenkins_debug)
+- [x] Task: Update `config.ts` to parse `DEBUG_MODE` env var and export a `verbose` flag (`dryRun || debugMode`). (config_verbose)
 - [ ] Task: Conductor - User Manual Verification 'API Fix & Parameter Update' (Protocol in workflow.md)
 
 ## Phase 2: Logging Overhaul

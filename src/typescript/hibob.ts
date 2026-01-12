@@ -6,7 +6,11 @@ export interface Employee {
 }
 
 export class HiBobService {
-    private headers = { 'Authorization': config.hibob.token! };
+    private headers = { 
+        'Authorization': config.hibob.token!,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    };
 
     async getEmployees(): Promise<Employee[]> {
         const response = await fetch(`${config.hibob.apiUrl}/people/search`, {

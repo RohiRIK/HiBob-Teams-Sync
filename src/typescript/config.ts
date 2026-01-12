@@ -11,7 +11,8 @@ export const config = {
     },
     isDryRun: process.env.IS_DRY_RUN === 'true',
     testUserEmail: process.env.TEST_USER_EMAIL || null,
-    syncAvatars: process.env.DO_SYNC_AVATARS === 'true'
+    syncAvatars: process.env.DO_SYNC_AVATARS === 'true',
+    verbose: (process.env.IS_DRY_RUN === 'true') || (process.env.DEBUG_MODE === 'true')
 };
 
 export function validateConfig() {

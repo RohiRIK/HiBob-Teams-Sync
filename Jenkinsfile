@@ -10,6 +10,7 @@ pipeline {
         string(name: 'TEST_USER_EMAIL', defaultValue: '', description: 'Enter a single email to test the sync safely on one user.')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'If checked, logs intended changes but does not write to Microsoft 365.')
         booleanParam(name: 'SYNC_AVATARS', defaultValue: true, description: 'Master toggle for the profile picture sync feature.')
+        booleanParam(name: 'DEBUG_MODE', defaultValue: false, description: 'If checked, enables verbose logging for troubleshooting.')
     }
 
     environment {
@@ -17,6 +18,9 @@ pipeline {
         AZURE_CLIENT_ID = credentials('azure-app-client-id')
         AZURE_CLIENT_SECRET = credentials('azure-app-client-secret')
         AZURE_TENANT_ID = credentials('azure-tenant-id')
+        IS_DRY_RUN = "${params.DRY_RUN}"
+        DO_SYNC_AVATARS = "${params.SYNC_AVATARS}"
+        DEBUG_MODE = "${params.DEBUG_MODE}"
     }
 
     stages {
