@@ -38,8 +38,18 @@ pipeline {
                             bun install
                         '''
                     } else {
-                        echo "📦 Unblocking PowerShell files..."
-                        sh 'pwsh -Command "Get-ChildItem -Recurse | Unblock-File"'
+                        echo "📦 Checking/Installing PowerShell..."
+                        sh '''
+                            if ! command -v pwsh &> /dev/null; then
+                                # Install PowerShell Core for Linux (Jenkins default)
+                                curl -L https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/powershell-7.4.1-linux-x64.tar.gz -o /tmp/powershell.tar.gz
+                                mkdir -p /var/jenkins_home/powershell
+                                tar -xvf /tmp/powershell.tar.gz -C /var/jenkins_home/powershell
+                                chmod +x /var/jenkins_home/powershell/pwsh
+                            fi
+                            export PATH="/var/jenkins_home/powershell:$PATH"
+                            pwsh -Command "Get-ChildItem -Recurse | Unblock-File"
+                        '''
                     }
                 }
             }
@@ -57,7 +67,10 @@ pipeline {
                         '''
                     } else {
                         echo "⚡ Executing PowerShell Logic..."
-                        sh 'pwsh -File src/powershell/Invoke-Sync.ps1'
+                        sh '''
+                            export PATH="/var/jenkins_home/powershell:$PATH"
+                            pwsh -File src/powershell/Invoke-Sync.ps1
+                        '''
                     }
                 }
             }
