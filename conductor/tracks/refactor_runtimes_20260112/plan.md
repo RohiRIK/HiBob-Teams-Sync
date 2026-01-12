@@ -6,8 +6,8 @@
 - [ ] Task: Conductor - User Manual Verification 'Analysis & Infrastructure' (Protocol in workflow.md)
 
 ## Phase 2: Manifest Consolidation
-- [ ] Task: Merge `typescript/package.json` dependencies into the root `package.json`.
-- [ ] Task: Configure root `package.json` scripts to use Bun runtimes.
+- [x] Task: Merge `typescript/package.json` dependencies into the root `package.json`. (3898cf6)
+- [x] Task: Configure root `package.json` scripts to use Bun runtimes. (3898cf6)
 - [ ] Task: Conductor - User Manual Verification 'Manifest Consolidation' (Protocol in workflow.md)
 
 ## Phase 3: Pipeline Update
