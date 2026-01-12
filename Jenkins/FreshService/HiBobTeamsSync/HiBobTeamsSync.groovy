@@ -47,10 +47,11 @@ pipeline {
                                     tar -xvf /tmp/powershell.tar.gz -C /var/jenkins_home/powershell
                                                                     chmod +x /var/jenkins_home/powershell/pwsh
                                                                 fi
-                                                                export PATH="/var/jenkins_home/powershell:$PATH"
-                                                                export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-                                                                pwsh -Command "Get-ChildItem -Recurse | Unblock-File"
-                                                            '''                        }
+                                                                                            export PATH="/var/jenkins_home/powershell:$PATH"
+                                                                                            export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+                                                                                            # Unblock-File removed (Not supported/needed on Linux)
+                                                                                        '''
+                                                                                    }
                     }
                 }
             }
