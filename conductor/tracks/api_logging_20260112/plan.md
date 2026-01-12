@@ -8,11 +8,11 @@
 - [ ] Task: Conductor - User Manual Verification 'API Fix & Parameter Update' (Protocol in workflow.md)
 
 ## Phase 2: Logging Overhaul
-- [ ] Task: Refactor `logger.ts` to support timestamped, leveled logging and the new `verbose` flag.
-- [ ] Task: Instrument `hibob.ts` with verbose logs (Request/Response details).
-- [ ] Task: Instrument `graph.ts` with verbose logs (Request/Response details).
-- [ ] Task: Instrument `index.ts` with user-level tracking logs (Start/End/Skip).
-- [ ] Task: Ensure `process.exit(1)` is called on critical errors in `index.ts`.
+- [x] Task: Refactor `logger.ts` to support timestamped, leveled logging and the new `verbose` flag. (logger_v2)
+- [x] Task: Instrument `hibob.ts` with verbose logs (Request/Response details). (log_hibob)
+- [x] Task: Instrument `graph.ts` with verbose logs (Request/Response details). (log_graph)
+- [x] Task: Instrument `index.ts` with user-level tracking logs (Start/End/Skip). (log_index)
+- [x] Task: Ensure `process.exit(1)` is called on critical errors in `index.ts`. (exit_fail)
 - [ ] Task: Conductor - User Manual Verification 'Logging Overhaul' (Protocol in workflow.md)
 
 ## Phase 3: Verification

@@ -12,6 +12,10 @@ async function main() {
         Logger.warn(CTX, "⚠️ MODE: DRY RUN (Safe Mode) - No changes will be applied.");
     }
 
+    if (config.verbose) {
+        Logger.info(CTX, "🔍 VERBOSE LOGGING ENABLED");
+    }
+
     const hibob = new HiBobService();
     const graph = new GraphService();
 
@@ -30,21 +34,40 @@ async function main() {
 
     Logger.info(CTX, `ℹ️ Processing ${targetEmployees.length} users...`);
 
+    let successCount = 0;
+    let failureCount = 0;
+
     for (const emp of targetEmployees) {
+        Logger.debug(CTX, `--- Starting User: ${emp.email || emp.id} ---`);
+
         if (!emp.email) {
             Logger.warn(CTX, `Skipping user ${emp.id} - No Email Address`);
+            failureCount++;
             continue;
         }
 
-        if (config.syncAvatars) {
-            const avatarUrl = await hibob.getAvatarUrl(emp.id);
-            if (avatarUrl) {
-                await graph.updateProfilePhoto(emp.email, avatarUrl);
-            } else {
-                // Logger.debug(CTX, `No avatar for ${emp.email}`);
+        try {
+            if (config.syncAvatars) {
+                const avatarUrl = await hibob.getAvatarUrl(emp.id);
+                if (avatarUrl) {
+                    await graph.updateProfilePhoto(emp.email, avatarUrl);
+                    successCount++;
+                } else {
+                    Logger.debug(CTX, `No avatar found for ${emp.email}`);
+                }
             }
+        } catch (error) {
+            Logger.error(CTX, `Failed to process ${emp.email}`, error);
+            failureCount++;
         }
+
+        Logger.debug(CTX, `--- Finished User: ${emp.email} ---`);
     }
+
+    Logger.info(CTX, `🏁 Sync Complete. Success: ${successCount}, Failures: ${failureCount}`);
 }
 
-main().catch(err => Logger.error(CTX, "Critical Execution Failure", err));
+main().catch(err => {
+    Logger.error(CTX, "Critical Execution Failure", err);
+    process.exit(1); // Ensure non-zero exit on failure
+});

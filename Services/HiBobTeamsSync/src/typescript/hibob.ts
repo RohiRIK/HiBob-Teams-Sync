@@ -1,4 +1,7 @@
 import { config } from "./config";
+import { Logger } from "./logger";
+
+const CTX = "HiBob";
 
 export interface Employee {
     id: string;
@@ -13,11 +16,16 @@ export class HiBobService {
     };
 
     async getEmployees(): Promise<Employee[]> {
-        const response = await fetch(`${config.hibob.apiUrl}/people/search`, {
+        const url = `${config.hibob.apiUrl}/people/search`;
+        Logger.debug(CTX, `POST ${url} | Payload: { showInactive: false }`);
+
+        const response = await fetch(url, {
             method: 'POST',
             headers: this.headers,
             body: JSON.stringify({ showInactive: false })
         });
+
+        Logger.debug(CTX, `Response: ${response.status} ${response.statusText}`);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch employees: ${response.statusText}`);
@@ -32,16 +40,21 @@ export class HiBobService {
 
     async getAvatarUrl(employeeId: string): Promise<string | null> {
         try {
-            const response = await fetch(`${config.hibob.apiUrl}/avatars/${employeeId}`, {
+            const url = `${config.hibob.apiUrl}/avatars/${employeeId}`;
+            Logger.debug(CTX, `GET ${url}`);
+
+            const response = await fetch(url, {
                 headers: this.headers
             });
+            
+            Logger.debug(CTX, `Response: ${response.status} ${response.statusText}`);
             
             if (!response.ok) return null;
             
             const data = await response.json();
             return data.avatarUrl || null;
         } catch (error) {
-            console.error(`Error fetching avatar for ${employeeId}:`, error);
+            Logger.error(CTX, `Error fetching avatar for ${employeeId}`, error);
             return null;
         }
     }
