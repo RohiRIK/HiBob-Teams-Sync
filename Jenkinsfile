@@ -24,8 +24,15 @@ pipeline {
             steps {
                 script {
                     if (params.SCRIPT_LANGUAGE == 'TypeScript (Bun)') {
-                        echo "📦 Installing Bun dependencies..."
-                        sh 'bun install'
+                        echo "📦 Checking/Installing Bun..."
+                        sh '''
+                            if ! command -v bun &> /dev/null; then
+                                curl -fsSL https://bun.sh/install | bash
+                            fi
+                            export BUN_INSTALL="$HOME/.bun"
+                            export PATH="$BUN_INSTALL/bin:$PATH"
+                            bun install
+                        '''
                     } else {
                         echo "📦 Unblocking PowerShell files..."
                         sh 'pwsh -Command "Get-ChildItem -Recurse | Unblock-File"'
@@ -39,7 +46,11 @@ pipeline {
                 script {
                     if (params.SCRIPT_LANGUAGE == 'TypeScript (Bun)') {
                         echo "⚡ Executing TypeScript Logic (Bun)..."
-                        sh 'bun start'
+                        sh '''
+                            export BUN_INSTALL="$HOME/.bun"
+                            export PATH="$BUN_INSTALL/bin:$PATH"
+                            bun start
+                        '''
                     } else {
                         echo "⚡ Executing PowerShell Logic..."
                         sh 'pwsh -File src/powershell/Invoke-Sync.ps1'
