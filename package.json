@@ -2,13 +2,13 @@
   "name": "hibob-teams-sync",
   "version": "1.0.0",
   "description": "Syncs HiBob profile pictures to Microsoft Teams (Entra ID).",
-  "main": "src/typescript/index.ts",
   "type": "module",
   "scripts": {
-    "start": "node src/typescript/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "bun run src/typescript/index.ts",
+    "test": "bun test"
   },
   "devDependencies": {
-    "@types/node": "latest"
+    "@types/node": "latest",
+    "@types/bun": "latest"
   }
 }
