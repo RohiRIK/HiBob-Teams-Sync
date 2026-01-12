@@ -5,7 +5,7 @@
 *   **PowerShell Core:** Alternative runtime for environments where PowerShell is preferred.
 
 ## Runtimes & Orchestration
-*   **Bun / Node.js:** Execution engines for the TypeScript codebase.
+*   **Bun:** Primary execution engine for the TypeScript codebase.
 *   **Jenkins Pipeline:** Automates the scheduled execution and parameter handling.
 
 ## APIs & External Services
