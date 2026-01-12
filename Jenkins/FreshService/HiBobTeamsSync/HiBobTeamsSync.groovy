@@ -11,6 +11,7 @@ pipeline {
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'If checked, logs intended changes but does not write to Microsoft 365.')
         booleanParam(name: 'SYNC_AVATARS', defaultValue: true, description: 'Master toggle for the profile picture sync feature.')
         booleanParam(name: 'DEBUG_MODE', defaultValue: false, description: 'If checked, enables verbose logging for troubleshooting.')
+        string(name: 'MAX_USERS', defaultValue: '0', description: 'Safety limit: Maximum number of users to process (0 for unlimited).')
     }
 
     environment {
@@ -21,6 +22,7 @@ pipeline {
         IS_DRY_RUN = "${params.DRY_RUN}"
         DO_SYNC_AVATARS = "${params.SYNC_AVATARS}"
         DEBUG_MODE = "${params.DEBUG_MODE}"
+        MAX_USERS = "${params.MAX_USERS}"
     }
 
     stages {
@@ -42,16 +44,17 @@ pipeline {
                             echo "📦 Checking/Installing PowerShell..."
                             sh '''
                                 if ! command -v pwsh &> /dev/null; then
+                                    # Install PowerShell Core for Linux (Jenkins default)
                                     curl -L https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/powershell-7.4.1-linux-x64.tar.gz -o /tmp/powershell.tar.gz
                                     mkdir -p /var/jenkins_home/powershell
                                     tar -xvf /tmp/powershell.tar.gz -C /var/jenkins_home/powershell
-                                                                    chmod +x /var/jenkins_home/powershell/pwsh
-                                                                fi
-                                                                                            export PATH="/var/jenkins_home/powershell:$PATH"
-                                                                                            export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-                                                                                            # Unblock-File removed (Not supported/needed on Linux)
-                                                                                        '''
-                                                                                    }
+                                    chmod +x /var/jenkins_home/powershell/pwsh
+                                fi
+                                export PATH="/var/jenkins_home/powershell:$PATH"
+                                export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+                                # Unblock-File removed (Not supported/needed on Linux)
+                            '''
+                        }
                     }
                 }
             }

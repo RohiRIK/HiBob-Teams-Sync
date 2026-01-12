@@ -17,26 +17,44 @@ export class HiBobService {
 
     async getEmployees(): Promise<Employee[]> {
         const url = `${config.hibob.apiUrl}/people/search`;
-        Logger.debug(CTX, `POST ${url} | Token Length: ${config.hibob.token?.length || 0} characters`);
-        Logger.debug(CTX, `Payload: { showInactive: false }`);
+        let allEmployees: Employee[] = [];
+        let hasMore = true;
+        let searchToken: string | undefined = undefined;
 
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: this.headers,
-            body: JSON.stringify({ showInactive: false })
-        });
+        while (hasMore) {
+            Logger.debug(CTX, `POST ${url} | Token Length: ${config.hibob.token?.length || 0} characters | searchToken: ${searchToken || 'none'}`);
+            
+            const body: any = { 
+                showInactive: false,
+                humanReadable: true 
+            };
+            if (searchToken) body.searchToken = searchToken;
 
-        Logger.debug(CTX, `Response: ${response.status} ${response.statusText}`);
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: this.headers,
+                body: JSON.stringify(body)
+            });
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch employees: ${response.statusText}`);
+            if (!response.ok) {
+                Logger.debug(CTX, `Response: ${response.status} ${response.statusText}`);
+                throw new Error(`Failed to fetch employees: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            const pageEmployees = data.employees.map((e: any) => ({
+                id: e.id,
+                email: e.email
+            }));
+
+            allEmployees = allEmployees.concat(pageEmployees);
+            searchToken = data.searchToken;
+            hasMore = !!searchToken && pageEmployees.length > 0;
+
+            Logger.debug(CTX, `Page received: ${pageEmployees.length} users. Total so far: ${allEmployees.length}`);
         }
 
-        const data = await response.json();
-        return data.employees.map((e: any) => ({
-            id: e.id,
-            email: e.email
-        }));
+        return allEmployees;
     }
 
     async getAvatarUrl(employeeId: string): Promise<string | null> {

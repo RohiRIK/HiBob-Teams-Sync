@@ -46,7 +46,9 @@ export class GraphService {
         try {
             // 1. Download image
             Logger.debug(this.context, `Downloading avatar for ${email} from: ${avatarUrl}`);
-            const imgRes = await fetch(avatarUrl);
+            const imgRes = await fetch(avatarUrl, {
+                headers: { 'Authorization': config.hibob.token! }
+            });
             Logger.debug(this.context, `Download Status: ${imgRes.status}`);
 
             if (!imgRes.ok) throw new Error(`Failed to download avatar from Bob: ${imgRes.statusText}`);
@@ -69,8 +71,9 @@ export class GraphService {
             Logger.debug(this.context, `Graph Response: ${graphRes.status}`);
 
             if (!graphRes.ok) {
-                const errText = await graphRes.text();
-                throw new Error(`Graph API ${graphRes.status}: ${errText}`);
+                const errorData = await graphRes.json().catch(() => ({}));
+                const message = errorData.error?.message || await graphRes.text();
+                throw new Error(`Graph API ${graphRes.status}: ${message}`);
             }
             Logger.info(this.context, `✅ Success: Updated photo for ${email}`);
         } catch (error) {

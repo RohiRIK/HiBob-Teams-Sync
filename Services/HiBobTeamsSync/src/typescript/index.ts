@@ -6,7 +6,9 @@ import { Logger } from "./logger";
 const CTX = "Main";
 
 async function main() {
-    validateConfig();
+    if (!validateConfig()) {
+        process.exit(1);
+    }
 
     if (config.isDryRun) {
         Logger.warn(CTX, "⚠️ MODE: DRY RUN (Safe Mode) - No changes will be applied.");
@@ -32,12 +34,19 @@ async function main() {
         process.exit(1);
     }
 
-    Logger.info(CTX, `ℹ️ Processing ${targetEmployees.length} users...`);
+    // Apply safety limit if specified
+    let finalEmployees = targetEmployees;
+    if (config.maxUsers > 0 && !config.testUserEmail) {
+        Logger.warn(CTX, `⚠️ Safety Limit Active: Processing only the first ${config.maxUsers} users.`);
+        finalEmployees = targetEmployees.slice(0, config.maxUsers);
+    }
+
+    Logger.info(CTX, `ℹ️ Processing ${finalEmployees.length} users...`);
 
     let successCount = 0;
     let failureCount = 0;
 
-    for (const emp of targetEmployees) {
+    for (const emp of finalEmployees) {
         Logger.debug(CTX, `--- Starting User: ${emp.email || emp.id} ---`);
 
         if (!emp.email) {

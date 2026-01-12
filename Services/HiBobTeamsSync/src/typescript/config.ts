@@ -12,10 +12,11 @@ export const config = {
     isDryRun: process.env.IS_DRY_RUN === 'true',
     testUserEmail: process.env.TEST_USER_EMAIL || null,
     syncAvatars: process.env.DO_SYNC_AVATARS === 'true',
-    verbose: (process.env.IS_DRY_RUN === 'true') || (process.env.DEBUG_MODE === 'true')
+    verbose: (process.env.IS_DRY_RUN === 'true') || (process.env.DEBUG_MODE === 'true'),
+    maxUsers: parseInt(process.env.MAX_USERS || '0', 10)
 };
 
-export function validateConfig() {
+export function validateConfig(): boolean {
     const missing = [];
     if (!config.hibob.token) missing.push("HIBOB_TOKEN");
     if (!config.azure.clientId) missing.push("AZURE_CLIENT_ID");
@@ -24,6 +25,7 @@ export function validateConfig() {
 
     if (missing.length > 0) {
         console.error(`❌ Missing required environment variables: ${missing.join(", ")}`);
-        process.exit(1);
+        return false;
     }
+    return true;
 }
