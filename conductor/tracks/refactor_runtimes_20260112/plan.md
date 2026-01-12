@@ -15,7 +15,7 @@
 - [x] Task: Standardize the `SCRIPT_LANGUAGE` parameter logic in Jenkins. (jenkins_bun_param)
 - [ ] Task: Conductor - User Manual Verification 'Pipeline Update' (Protocol in workflow.md)
 
-## Phase 4: Cleanup & Verification
+## Phase 4: Cleanup & Verification [checkpoint: 4b29ecf]
 - [x] Task: Remove redundant `typescript/` nested directory structure if sources are consolidated. (rm_ts_dir)
 - [x] Task: Perform a full dry-run sync to verify runtime stability. (dryrun_pass)
 - [ ] Task: Conductor - User Manual Verification 'Cleanup & Verification' (Protocol in workflow.md)
